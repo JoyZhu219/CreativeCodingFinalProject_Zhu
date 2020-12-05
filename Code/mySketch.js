@@ -10,7 +10,7 @@ let count = 0;
 let tileCountX = 1;
 let tileCountY = 1;
 let drawMode = 1;
-let time;
+let time; 
 
 function preload() {
 	soundFormats('wav', 'mp3');
@@ -58,6 +58,10 @@ function setup() {
 	//this loads the clock animation
 	clock = loadAnimation('clock1.png', 'clock8.png');
 	
+	// speech recognition object (will prompt for mic access)
+	// foo = new p5.SpeechRec('en-US');
+	
+	
 	//this adds the animations into sprites and to the groups
 	for (let i =0; i< 30; i++) {
 		//creates a sprite for the babies
@@ -68,7 +72,7 @@ function setup() {
 		
 		//creates a sprite for the meat
 		let newMeat = createSprite(random(width/3,2*(width/3)), random(200,height/3));
-		newMeat.addAnimation('dancing', 'Meat1.png', 'Meat4.png');
+		newMeat.addAnimation('dancing', 'Meat1.png', 'Meat4.png').frameDelay = 6;
 		newMeat.visible = false;
 		newMeat.setCollider('circle');
 		meat.add(newMeat);
@@ -81,7 +85,7 @@ function setup() {
 		
 		//creates a sprite for the Instagram logo
 		let newIns = createSprite(random(width/3,2*(width/3)), random(200,height/3));
-		newIns.addAnimation('dancing', 'Ins1.png', 'Ins5.png');
+		newIns.addAnimation('dancing', 'Ins1.png', 'Ins5.png').frameDelay = 10;
 		newIns.visible = false;
 		insta.add(newIns);
 		
@@ -93,22 +97,27 @@ function setup() {
 		
 		//creates a sprite for the mail
 		let newMail = createSprite(random(width/3,2*(width/3)), random(200,height/3));
-		newMail.addAnimation('dancing', 'Email1.png', 'Email3.png');
+		newMail.addAnimation('dancing', 'Email1.png', 'Email3.png').frameDelay = 8;
 		newMail.visible = false;
 		email.add(newMail);
+	} 
 		
+	for (let i =0; i< 30; i++) {
 		//creates a sprite for the cans
 		let newCan = createSprite(random(width/3,2*(width/3)), random(200,height/3));
-		newCan.addAnimation('dancing', 'Can1.png', 'Can3.png');
+		newCan.addAnimation('dancing', 'Can1.png', 'Can3.png').frameDelay = 10;
 		newCan.visible = false;
 		cans.add(newCan);
-		
+	}
+	
+	for (let i =0; i< 100; i++) {
 		//creates a sprite for Amazon
-		let newAmazon = createSprite(random(width/3,2*(width/3)), random(200,height/3));
-		newAmazon.addAnimation('dancing','Amazon1.png', 'Amazon4.png');
+		let newAmazon = createSprite(width/12 + floor(random(6))*width/6, random(200,height/3));
+		newAmazon.addAnimation('dancing','Amazon1.png', 'Amazon4.png').frameDelay = 10;
 		newAmazon.visible = false;
 		amazon.add(newAmazon);
-	} 
+	}
+		
 }
 
 /* this displays the Baby sprites when its their time, and sets a collider so that they dont overlap
@@ -137,7 +146,8 @@ function showEmails(group){
 	for (let i = 0; i< group.length; i++) {
 		let j = group[i];
 		j.visible = true;
-		j.scale = random(0.1,1.5);
+		// j.scale = random(0.1,1.5);
+		j.scale = noise(frameCount*0.01)*2;
 		if (j.position.x < width/2 && j.position.y < height/2) {
 			j.position.x += 1;
 				//j.attractionPoint(0.2, 0,0);
@@ -208,7 +218,7 @@ function showInstagram(group) {
 		j.friction = random(0.1);
 		//this makes the text move around in the center of the screen
 		j.attractionPoint(3, mouseX,mouseY);
-		j.scale = random(0.5, 1);
+		j.scale = random(0.9, 1);
 		j.maxSpeed = 5;
 		//j.setSpeed(2,random(2,1));
 		j.setCollider('circle',0,0,100);
@@ -221,19 +231,19 @@ function showInstagram(group) {
 the code also controls the position of the sprites so they dont stack too high or too wide 
 There's something wrong with it that it cannot show up*/
 function showAmazon(group) {
-	for (let i = 0; i< 20; i++) {
+	for (let i = 0; i< 100; i++) {
 		let j = group[i];
 		j.visible = true;
 		j.position.y += random(1,10);
 		//b.setSpeed(2,0);
-		if (j.position.y == height-50) {
-			j.position.y -= random(1,10);
+		if (j.position.y >= height-50) {
+			j.position.y -= random(1,40);
 			//j.setSpeed(2,0);
 		}
 		if (j.position.x > width-50){
-			j.position.x -= random(1,10);
+			j.position.x -= random(1,3);
 		} else if (j.position.x < 50){
-			j.position.x += random(1,10);
+			j.position.x += random(1,3);
 		}
 		j.setCollider('circle',width/2,height/2,5);
 	}
@@ -266,11 +276,11 @@ function showMeat(group) {
 the code also controls the downward movement 
 There's something wrong with it that it cannot show up*/
 function showCans(group) {
-	for (let i = 0; i< 20; i++) {
-			let j = group[i];
-			j.visible = true;
-			j.position.y +=0.3;
-			j.setCollider('circle',0,0,5);
+	for (let i = 0; i< 25; i++) {
+		let j = group[i];
+		j.visible = true;
+		j.position.y += random(1, 3);
+		j.setCollider('circle',0,0,100);
 	}
 	//this makes the items in the group bounce against each other.
 	group.bounce(group);
@@ -489,6 +499,11 @@ I got the code from the p5.play library examples because I had trouble keeping t
     }
 	}
 	drawSprites();
+}
+
+function showError(){
+	console.log('There is an error');
+	text('There is an error', windowWidth/2, windowHeight/2);
 }
 
 function mousePressed() {

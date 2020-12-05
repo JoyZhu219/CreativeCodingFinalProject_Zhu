@@ -72,6 +72,8 @@ function setup() {
 		
 		//creates a sprite for the meat
 		let newMeat = createSprite(random(width/3,2*(width/3)), random(200,height/3));
+		//uses frame delay to delay between frames in number of draw cycles
+		//the framerate of the animation would be the sketch framerate divided by 6
 		newMeat.addAnimation('dancing', 'Meat1.png', 'Meat4.png').frameDelay = 6;
 		newMeat.visible = false;
 		newMeat.setCollider('circle');
@@ -85,6 +87,7 @@ function setup() {
 		
 		//creates a sprite for the Instagram logo
 		let newIns = createSprite(random(width/3,2*(width/3)), random(200,height/3));
+		//the framerate of the animation would be the sketch framerate divided by 10
 		newIns.addAnimation('dancing', 'Ins1.png', 'Ins5.png').frameDelay = 10;
 		newIns.visible = false;
 		insta.add(newIns);
@@ -97,6 +100,7 @@ function setup() {
 		
 		//creates a sprite for the mail
 		let newMail = createSprite(random(width/3,2*(width/3)), random(200,height/3));
+		//the framerate of the animation would be the sketch framerate divided by 8
 		newMail.addAnimation('dancing', 'Email1.png', 'Email3.png').frameDelay = 8;
 		newMail.visible = false;
 		email.add(newMail);
@@ -105,6 +109,7 @@ function setup() {
 	for (let i =0; i< 30; i++) {
 		//creates a sprite for the cans
 		let newCan = createSprite(random(width/3,2*(width/3)), random(200,height/3));
+		//the framerate of the animation would be the sketch framerate divided by 10
 		newCan.addAnimation('dancing', 'Can1.png', 'Can3.png').frameDelay = 10;
 		newCan.visible = false;
 		cans.add(newCan);
@@ -113,6 +118,7 @@ function setup() {
 	for (let i =0; i< 100; i++) {
 		//creates a sprite for Amazon
 		let newAmazon = createSprite(width/12 + floor(random(6))*width/6, random(200,height/3));
+		//the framerate of the animation would be the sketch framerate divided by 10
 		newAmazon.addAnimation('dancing','Amazon1.png', 'Amazon4.png').frameDelay = 10;
 		newAmazon.visible = false;
 		amazon.add(newAmazon);
@@ -150,13 +156,13 @@ function showEmails(group){
 		j.scale = noise(frameCount*0.01)*2;
 		if (j.position.x < width/2 && j.position.y < height/2) {
 			j.position.x += 1;
-				//j.attractionPoint(0.2, 0,0);
+			//j.attractionPoint(0.2, 0,0);
 		} else if (j.position.x > width/2 && j.position.y > height/2) {
 			j.position.x -= 1;
-				//j.attractionPoint(0.2, width,height);
+			//j.attractionPoint(0.2, width,height);
 		} else if (j.position.x > width/2 &&  j.position.y < height/2) {
 			j.position.x -= 1;
-				//j.attractionPoint(0.2, width,0);				 
+			//j.attractionPoint(0.2, width,0);				 
 		} else {
 			j.position.x += 1;
 				//j.attractionPoint(0.2, 0,height);		
@@ -228,8 +234,7 @@ function showInstagram(group) {
 }
 
 /* this displays the Amazon signs when its their time, and sets a collider so that they dont overlap
-the code also controls the position of the sprites so they dont stack too high or too wide 
-There's something wrong with it that it cannot show up*/
+the code also controls the position of the sprites so they dont stack too high or too wide */
 function showAmazon(group) {
 	for (let i = 0; i< 100; i++) {
 		let j = group[i];
@@ -273,8 +278,7 @@ function showMeat(group) {
 }
 
 /* this displays the burgers when its their time, and sets a collider so that they dont overlap
-the code also controls the downward movement 
-There's something wrong with it that it cannot show up*/
+the code also controls the downward movement */
 function showCans(group) {
 	for (let i = 0; i< 25; i++) {
 		let j = group[i];
@@ -386,7 +390,8 @@ function draw(){
 		}
 		//text('This is what happens every 5 seconds',width/2,500);
 		stroke(0);
-	} else if (time <10000) { //this time conditions control the pace in which the facts are shown i.e. every second
+		//this time conditions control the pace in which the facts are shown i.e. every second
+	} else if (time <10000) {
 		background(255);
 		//makes the baby animation play and displays the fact
 		showBabies(babies);
@@ -473,8 +478,7 @@ function draw(){
 	}
 	time = millis();
 	
-/* this part of the code ensures that all the sprites bounce at the screen edges.
-I got the code from the p5.play library examples because I had trouble keeping them within ths screen */
+/* this part of the code ensures that all the sprites bounce at the screen edges */
 	for(let i=0; i<allSprites.length; i++) {
     let d = allSprites[i];
 		//accesses all sprites checks if the x position is less than zero

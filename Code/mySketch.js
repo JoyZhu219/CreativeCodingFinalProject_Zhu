@@ -11,6 +11,25 @@ let tileCountX = 1;
 let tileCountY = 1;
 let drawMode = 1;
 let time; 
+let aWidth;
+let posx = [];
+let posy = [];
+let cyclex = [];
+let cycley = [];
+let theta = 0;
+let spacing = 40;
+let word1 = "This is what happens";
+let word2 = "every 5 seconds";
+let bSize = 15;
+
+let r1;
+let j1;
+let k1;
+let l1=0;
+let m1=0;
+let n1=0;
+let f1=0;
+let g1=0;
 
 function preload() {
 	soundFormats('wav', 'mp3');
@@ -32,12 +51,17 @@ function preload() {
 }
 
 function setup() {
+	aWidth = windowWidth;
 	createCanvas(windowWidth,windowHeight);
 	//sets the font and the size and the alignment of all of the text
 	textFont(myFont);
 	textSize(width/20);
 	textAlign(CENTER, CENTER);
 	rectMode(CENTER);
+	r1=width;
+	j1=height;
+	k1=height;
+    l1=0;
 	//slows down the rate of the animations
 	frameRate(30);
 	time = millis();
@@ -370,6 +394,8 @@ function homescreen() {
   }
 }
 
+//let fsize = aWidth/2;
+
 function draw(){
 	background(255);
 	//this is the code for the home screen or default part of the experience.
@@ -381,7 +407,37 @@ function draw(){
 		fill(0);
 		textSize(width/20);
 		if(pos< 500) {
-			text('This is what happens every 5 seconds',width/2,500+pos);
+			push();
+			theta = (theta + 1.5) % 360;
+
+  for (let i = 0; i < 47; i++) {
+    cyclex[i] = sin(radians(theta+(i*25))*2);
+    cycley[i] = cos(radians(theta+(i*25))*2);
+    posx[i] = (width/2-(spacing*2)) + (i * spacing);
+    posy[i] = height/2;
+    
+    //balls
+    noStroke();
+    fill(0, 0, 0);
+    ellipse(posx[i]-615, (50*cycley[i])+posy[i]+80, bSize, bSize);
+    
+    //Dodge
+    push();
+    translate(25*cyclex[i]+posx[i], posy[i]);
+    fill(0);
+    // textFont("arial");
+		// textSize(50);
+		textSize(60);
+    text(word1[i], -315, 15);
+    text(word2[i], -315, 95);
+    pop();
+  }
+  pop();
+			//text('This is what happens every 5 seconds',width/2,500+pos);
+			//fsize +=50;
+			//textSize(fsize);
+			//if(fsize>300) {
+			//	fsize=width/20;}
 			let m = map(mouseY,height/2,0,0,height,0);
 			pos = m;
 			//pos+= sin(frameCount/2);
@@ -397,18 +453,24 @@ function draw(){
 		showBabies(babies);
 		fill(0);
 		textSize(width/20);
-		text('21 babies are born',width/2,500);
+		if(f1 <width/2){
+        f1 +=6
+		}
+		text("21 babies are born",f1,500);
 	} else if (time < 15000) {
 		background(255);
 		//hides the previous group
 		unseen(babies);
 		//makes the meat animation play and displays the fact
 		fill(0);
-		textSize(width/20);
+		textSize(width/30);
 		//seen(meat);
 		showMeat(meat);
 		//myMeat.play();
-		text('Supermarkets throw away 4.5 tons of edible foods',width/2,500);
+		if(g1 <500){
+	    g1 +=6;
+	}
+		text("Supermarkets throw away 4.5 tons of edible foods",width/2,g1);
 	} else if (time < 20000) {
 		background(255);
 		//hides the previous group
@@ -418,7 +480,12 @@ function draw(){
 		showCoffee(coffee);
 		fill(0);
 		textSize(width/20);
-		text('254 cups of coffee are drunk',width/2,500);
+		
+		if(r1>width/2){
+		
+        r1-=6
+		}
+		text("254 cups of coffee are drunk",r1,500);
 	} else if (time < 25000) {
 		background(255);
 		//hides the previous group
@@ -427,7 +494,11 @@ function draw(){
 		showCans(cans);
 		fill(0);
 		textSize(width/20);
-		text('20,000 cans are open',width/2,500);
+		if(j1>height/2){
+
+			j1-=6
+			}
+		text('20,000 cans are open',width/2,j1);
 	} else if (time < 30000) {
 		background(255);
 		//hides the previous group
@@ -436,7 +507,11 @@ function draw(){
 		showGraves(deads);
 		fill(0);
 		textSize(width/20);
-		text('9 people die',width/2,500);
+		// if(j1>height/2){
+		
+			k1-=6
+			// }
+		text('9 people die',width/2,k1);
 	} else if (time < 35000) {
 		background(255);
 		//hides the previous group
@@ -445,7 +520,8 @@ function draw(){
 		showInstagram(insta);
 		fill(0);
 		textSize(width/20);
-		text('3,200 pictures are posted on Instagram',width/2,500);
+		text('3,200 pictures are posted on Instagram',width/2+500*sin(l1),500);
+		l1 +=0.03;
 	} else if (time < 40000) {
 		background(255);
 		//hides the previous group
@@ -454,7 +530,8 @@ function draw(){
 		showEmails(email);
 		fill(0);
 		textSize(width/20);
-		text('17,000,000 emails are sent',width/2,500);
+		text('17,000,000 emails are sent',width/2,500+300*sin(m1));
+		m1 +=0.03
 	} else if (time < 45000) {
 		background(255);
 		//hides the previous group
@@ -463,8 +540,8 @@ function draw(){
 		showAmazon(amazon);
 		fill(0);
 		textSize(width/20);
-		text('Amazon sells $7,000 worth of product',width/2,500);
-	
+		text('Amazon sells $7,000 worth of product',width/2+300*sin(n1),500+300*sin(n1));
+		n1 +=0.03
 	} else {
 		background(255);
 		//hides the previous group
@@ -505,10 +582,10 @@ function draw(){
 	drawSprites();
 }
 
-function showError(){
+/*function showError(){
 	console.log('There is an error');
 	text('There is an error', windowWidth/2, windowHeight/2);
-}
+}*/
 
 function mousePressed() {
 	//this part allows the sounds to be controlled with the mouse clicks at the appropriate times. 

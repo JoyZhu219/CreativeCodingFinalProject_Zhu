@@ -31,6 +31,11 @@ let n1=0;
 let f1=0;
 let g1=0;
 
+
+
+let hueValue = 0;
+let t = 0;
+let f = 10;
 function preload() {
 	soundFormats('wav', 'mp3');
 	myFont = loadFont('Quicksand-Regular.otf');
@@ -61,6 +66,7 @@ function setup() {
 	r1=width;
 	j1=height;
 	k1=height;
+	
     l1=0;
 	//slows down the rate of the animations
 	frameRate(30);
@@ -398,9 +404,16 @@ function homescreen() {
 
 function draw(){
 	background(255);
+
 	//this is the code for the home screen or default part of the experience.
 	homescreen();
-	
+	for(let iter = 0;iter < height;iter++) {
+		t = (hueValue + iter/8) % 360;
+		h = t + f * sin(3 * t / 57);         // radians		
+		  stroke(h, 100, 100);
+			  line(0, iter, width, iter);
+		  }
+		  hueValue++;
 	//the first 5 seconds show the ticking clock animation and the text
 	if (time < 5000) {
 		animation(clock,width/2,height/3);
@@ -449,6 +462,13 @@ function draw(){
 		//this time conditions control the pace in which the facts are shown i.e. every second
 	} else if (time <10000) {
 		background(255);
+		for(let iter = 0;iter < height;iter++) {
+			t = (hueValue + iter/8) % 360;
+			h = t + f * sin(3 * t / 57);         // radians		
+			  stroke(h, 0, 0);
+				  line(0, iter, width, iter);
+			  }
+			  hueValue++;
 		//makes the baby animation play and displays the fact
 		showBabies(babies);
 		fill(0);
@@ -459,6 +479,13 @@ function draw(){
 		text("21 babies are born",f1,500);
 	} else if (time < 15000) {
 		background(255);
+		for(let iter = 0;iter < height;iter++) {
+			t = (hueValue + iter/8) % 360;
+			h = t + f * sin(3 * t / 57);         // radians		
+			  stroke(h, 255, 100);
+				  line(0, iter, width, iter);
+			  }
+			  hueValue++;
 		//hides the previous group
 		unseen(babies);
 		//makes the meat animation play and displays the fact
@@ -473,6 +500,13 @@ function draw(){
 		text("Supermarkets throw away 4.5 tons of edible foods",width/2,g1);
 	} else if (time < 20000) {
 		background(255);
+		for(let iter = 0;iter < height;iter++) {
+			t = (hueValue + iter/8) % 360;
+			h = t + f * sin(3 * t / 57);         // radians		
+			  stroke(h, 100, 255);
+				  line(0, iter, width, iter);
+			  }
+			  hueValue++;
 		//hides the previous group
 		//myMeat.stop();
 		unseen(meat);
@@ -488,6 +522,13 @@ function draw(){
 		text("254 cups of coffee are drunk",r1,500);
 	} else if (time < 25000) {
 		background(255);
+		for(let iter = 0;iter < height;iter++) {
+			t = (hueValue + iter/8) % 360;
+			h = t + f * sin(3 * t / 57);         // radians		
+			  stroke(h, 190, 190);
+				  line(0, iter, width, iter);
+			  }
+			  hueValue++;
 		//hides the previous group
 		unseen(coffee);
 		//makes the cans animation play and displays the fact
@@ -501,6 +542,13 @@ function draw(){
 		text('20,000 cans are open',width/2,j1);
 	} else if (time < 30000) {
 		background(255);
+		for(let iter = 0;iter < height;iter++) {
+			t = (hueValue + iter/8) % 360;
+			h = t + f * sin(3 * t / 57);         // radians		
+			  stroke(h, 20, 10);
+				  line(0, iter, width, iter);
+			  }
+			  hueValue++;
 		//hides the previous group
 		unseen(cans);
 		//makes the grave animation play and displays the fact
@@ -514,6 +562,13 @@ function draw(){
 		text('9 people die',width/2,k1);
 	} else if (time < 35000) {
 		background(255);
+		for(let iter = 0;iter < height;iter++) {
+			t = (hueValue + iter/8) % 360;
+			h = t + f * sin(3 * t / 57);         // radians		
+			  stroke(h, 0, 100);
+				  line(0, iter, width, iter);
+			  }
+			  hueValue++;
 		//hides the previous group
 		unseen(deads);
 		//makes the instagram animation play and displays the fact
@@ -524,6 +579,13 @@ function draw(){
 		l1 +=0.03;
 	} else if (time < 40000) {
 		background(255);
+		for(let iter = 0;iter < height;iter++) {
+			t = (hueValue + iter/8) % 360;
+			h = t + f * sin(3 * t / 57);         // radians		
+			  stroke(h, 200, 100);
+				  line(0, iter, width, iter);
+			  }
+			  hueValue++;
 		//hides the previous group
 		unseen(insta);
 		//makes the mail animation play and displays the fact
@@ -534,6 +596,13 @@ function draw(){
 		m1 +=0.03
 	} else if (time < 45000) {
 		background(255);
+		for(let iter = 0;iter < height;iter++) {
+			t = (hueValue + iter/8) % 360;
+			h = t + f * sin(3 * t / 57);         // radians		
+			  stroke(h, 100, 0);
+				  line(0, iter, width, iter);
+			  }
+			  hueValue++;
 		//hides the previous group
 		unseen(email)
 		//makes the amazon animation play and displays the fact
@@ -544,14 +613,26 @@ function draw(){
 		n1 +=0.03
 	} else {
 		background(255);
+		for(let iter = 0;iter < height;iter++) {
+			t = (hueValue + iter/8) % 360;
+			h = t + f * sin(3 * t / 57);         // radians		
+			  stroke(h, 100, 255);
+				  line(0, iter, width, iter);
+			  }
+			  hueValue++;
 		//hides the previous group
 		unseen(amazon);
 		fill(0);
 		textSize(width/20);
+		// text('restart',width/2,height/3-50);
 		text('You watched all of this',width/2,height/3);
 		if (time > 50000) {
 			image(cat, width/3, height/2,500,300);
 		} 
+
+		text('restart',width/2,height/2);
+
+
 	}
 	time = millis();
 	
@@ -580,14 +661,30 @@ function draw(){
     }
 	}
 	drawSprites();
+
+
+
+
+	
 }
 
 /*function showError(){
 	console.log('There is an error');
 	text('There is an error', windowWidth/2, windowHeight/2);
 }*/
+function keyPressed(){
 
-function mousePressed() {
+	if (isLooping()) {
+		noLoop()
+	  }
+	  else{
+		  loop()
+	  }
+}
+
+function mouseClicked() {
+	// console.log(mouseX,mouseY)
+	if(mouseX>636&&mouseX<893&&mouseY>340&&mouseY<406&&time >45000){window.location.reload()}
 	//this part allows the sounds to be controlled with the mouse clicks at the appropriate times. 
 	//I also set the volume to 2 when its their turn.
 	if (time<5000){
